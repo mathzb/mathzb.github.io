@@ -3,3 +3,5 @@ theme:
   name: material
   palette: 
     primary: red
+  features:
+    - navigation.instant
