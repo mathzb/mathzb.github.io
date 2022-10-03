@@ -2,6 +2,6 @@ site_name: My Docs
 theme:
   name: material
   palette: 
-    primary: red
+    primary: green
   features:
     - navigation.instant
