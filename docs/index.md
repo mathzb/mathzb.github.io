@@ -1,6 +1,6 @@
-# Welcome to MkDocs
+# Hjem
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Dette er dokumentation for [baungrd.dk](https://www.baungrd.dk).
 
 ## Commands
 
