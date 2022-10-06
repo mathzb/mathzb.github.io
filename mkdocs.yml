@@ -31,7 +31,16 @@ markdown_extensions:
 extra:
   status:
     new: Recently added
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
 copyright: Copyright &copy; 2022 Mathias Jacobsen
 repo_url: https://github.com/mathzb/baungrd-docs
 repo_name: mathzb/baungrd-docs
 edit_uri: edit/main/docs/
+plugins:
+  - search
