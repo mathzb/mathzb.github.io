@@ -3,18 +3,18 @@ status: new
 ---
 
 ```yaml
-version: "3"
+version: '3'
 services:
   NginxProxyManager:
-    image: "jc21/nginx-proxy-manager:latest"
+    image: 'jc21/nginx-proxy-manager:latest'
     container_name: NginxProxyManager
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "81:81"
-      - "443:443"
+      - '80:80'
+      - '81:81'
+      - '443:443'
     environment:
-      - DB_MYSQL_HOST=db01.jcobsn.xyz
+      - DB_MYSQL_HOST=db01.baungrd.dk
       - DB_MYSQL_PORT=3306
       - DB_MYSQL_USER=npm
       - DB_MYSQL_PASSWORD=x2pq1mak95
@@ -25,14 +25,14 @@ services:
       - /home/mathzb/docker/npm/letsencrypt:/etc/letsencrypt
 
   teamspeak:
-    image: "mbentley/teamspeak"
+    image: 'mbentley/teamspeak'
     container_name: teamspeak
     restart: unless-stopped
     ports:
-      - "9987:9987/udp"
-      - "30033:30033"
-      - "10011:10011"
-      - "41144:41144"
+      - '9987:9987/udp'
+      - '30033:30033'
+      - '10011:10011'
+      - '41144:41144'
     environment:
       - PUID=1000
       - PGID=1000
@@ -43,15 +43,15 @@ services:
       - /home/mathzb/docker/teamspeak/data:/data
 
   vaultwarden:
-    image: "vaultwarden/server:latest"
+    image: 'vaultwarden/server:latest'
     container_name: vaultwarden
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - '8080:80'
     environment:
       - ADMIN_TOKEN=v8YxPFw6Ve90q30B/6NRvKePrkwY2hTqFlFzvHeqjIJ3nlgruoSrQlBBHfAW4TK
       - WEBSOCKET_ENABLED=true
-      - DATABASE_URL=mysql://vaultwarden:x2pq1mak95@db01.jcobsn.xyz:3306/vaultwarden
+      - DATABASE_URL=mysql://vaultwarden:x2pq1mak95@db01.baungrd.dk:3306/vaultwarden
     volumes:
       - /home/mathzb/docker/vaultwarden:/data
 
@@ -160,7 +160,7 @@ services:
       - 21116:21116/udp
       - 21118:21118
     image: rustdesk/rustdesk-server:latest
-    command: hbbs -r remote.jcobsn.xyz:21117
+    command: hbbs -r remote.baungrd.dk:21117
     volumes:
       - ./rustdesk-server/data:/root
     depends_on:
