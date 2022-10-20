@@ -1,18 +1,14 @@
----
-status: new
----
-
 ```yaml
-version: '3'
+version: "3"
 services:
   NginxProxyManager:
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: "jc21/nginx-proxy-manager:latest"
     container_name: NginxProxyManager
     restart: unless-stopped
     ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+      - "80:80"
+      - "81:81"
+      - "443:443"
     environment:
       - DB_MYSQL_HOST=db01.baungrd.dk
       - DB_MYSQL_PORT=3306
@@ -25,14 +21,14 @@ services:
       - /home/mathzb/docker/npm/letsencrypt:/etc/letsencrypt
 
   teamspeak:
-    image: 'mbentley/teamspeak'
+    image: "mbentley/teamspeak"
     container_name: teamspeak
     restart: unless-stopped
     ports:
-      - '9987:9987/udp'
-      - '30033:30033'
-      - '10011:10011'
-      - '41144:41144'
+      - "9987:9987/udp"
+      - "30033:30033"
+      - "10011:10011"
+      - "41144:41144"
     environment:
       - PUID=1000
       - PGID=1000
@@ -43,11 +39,11 @@ services:
       - /home/mathzb/docker/teamspeak/data:/data
 
   vaultwarden:
-    image: 'vaultwarden/server:latest'
+    image: "vaultwarden/server:latest"
     container_name: vaultwarden
     restart: unless-stopped
     ports:
-      - '8080:80'
+      - "8081:80"
     environment:
       - ADMIN_TOKEN=v8YxPFw6Ve90q30B/6NRvKePrkwY2hTqFlFzvHeqjIJ3nlgruoSrQlBBHfAW4TK
       - WEBSOCKET_ENABLED=true
@@ -105,6 +101,7 @@ services:
       - "/home/mathzb:/storage:rw"
       - "/home/mathzb/downloads:/watch:rw"
       - "/home/mathzb/FileBot-Media:/output:rw"
+    restart: unless-stopped
 
   portainer:
     container_name: portainer
@@ -115,6 +112,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/mathzb/docker/portainer:/data
+    restart: unless-stopped
 
   phpmyadmin:
     image: lscr.io/linuxserver/phpmyadmin:latest
@@ -145,7 +143,7 @@ services:
       - 8443:8443
       - 3478:3478/udp
       - 10001:10001/udp
-      - 8280:8080
+      - 8080:8080
       - 8843:8843 #optional
       - 8881:8880 #optional
       - 6789:6789 #optional
@@ -177,4 +175,22 @@ services:
     volumes:
       - ./rustdesk-server/data:/root
     restart: unless-stopped
+
+  ghost:
+    image: ghost:latest
+    container_name: ghost
+    restart: unless-stopped
+    ports:
+      - 8082:2368
+    environment:
+      # see https://ghost.org/docs/config/#configuration-options
+      database__client: mysql
+      database__connection__host: db01.baungrd.dk
+      database__connection__user: ghost
+      database__connection__password: x2pq1mak95
+      database__connection__database: ghost
+      url: https://blog.baungrd.dk
+      NODE_ENV: production
+    volumes:
+      - /home/mathzb/docker/ghost:/var/lib/ghost/content
 ```
