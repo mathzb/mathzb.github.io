@@ -1,8 +1,8 @@
-name: dev-ci 
+name: ci 
 on:
   push:
     branches:
-      - dev
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
