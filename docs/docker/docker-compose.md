@@ -10,10 +10,10 @@ services:
       - "81:81"
       - "443:443"
     environment:
-      - DB_MYSQL_HOST=db01.baungrd.dk
+      - DB_MYSQL_HOST=db.baungrd.dk
       - DB_MYSQL_PORT=3306
       - DB_MYSQL_USER=npm
-      - DB_MYSQL_PASSWORD=x2pq1mak95
+      - DB_MYSQL_PASSWORD=PASSWORD
       - DB_MYSQL_NAME=npm
       - DISABLE_IPV6=true
     volumes:
@@ -34,7 +34,7 @@ services:
       - PGID=1000
       - TS3SERVER_GDPR_SAVE=false
       - TS3SERVER_LICENSE=accept
-      - serveradmin_password=x2pq1mak95
+      - serveradmin_password=PASSWORD
     volumes:
       - /home/mathzb/docker/teamspeak/data:/data
 
@@ -45,9 +45,9 @@ services:
     ports:
       - "8081:80"
     environment:
-      - ADMIN_TOKEN=v8YxPFw6Ve90q30B/6NRvKePrkwY2hTqFlFzvHeqjIJ3nlgruoSrQlBBHfAW4TK
+      - ADMIN_TOKEN=
       - WEBSOCKET_ENABLED=true
-      - DATABASE_URL=mysql://vaultwarden:x2pq1mak95@db01.baungrd.dk:3306/vaultwarden
+      - DATABASE_URL=mysql://vaultwarden:PASSWORD@db.baungrd.dk:3306/vaultwarden
     volumes:
       - /home/mathzb/docker/vaultwarden:/data
 
@@ -59,7 +59,7 @@ services:
       - PUID=1000
       - PGID=1000
       - VERSION=docker
-      - PLEX_CLAIM=claim-q-N4RAoBurApUMBVRDvd
+      - PLEX_CLAIM=
     volumes:
       - "/home/mathzb/docker/plex:/config"
       - "/home/mathzb:/storage:rw"
@@ -122,7 +122,7 @@ services:
       - PGID=1000
       - TZ=Europe/Copenhagen
       - PMA_ARBITRARY=1 #optional
-      - PMA_ABSOLUTE_URI=https://sql.jcobsn.xyz #optional
+      - PMA_ABSOLUTE_URI=http://sql.baungrd.dk #optional
     volumes:
       - /home/mathzb/docker/phpmyadmin/config:/config
     ports:
@@ -135,8 +135,6 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - MEM_LIMIT=1024 #optional
-      - MEM_STARTUP=1024 #optional
     volumes:
       - /home/mathzb/docker/unifi:/config
     ports:
@@ -149,48 +147,4 @@ services:
       - 6789:6789 #optional
       - 5514:5514/udp #optional
     restart: unless-stopped
-
-  hbbs:
-    container_name: hbbs
-    ports:
-      - 21115:21115
-      - 21116:21116
-      - 21116:21116/udp
-      - 21118:21118
-    image: rustdesk/rustdesk-server:latest
-    command: hbbs -r remote.baungrd.dk:21117
-    volumes:
-      - ./rustdesk-server/data:/root
-    depends_on:
-      - hbbr
-    restart: unless-stopped
-
-  hbbr:
-    container_name: hbbr
-    ports:
-      - 21117:21117
-      - 21119:21119
-    image: rustdesk/rustdesk-server:latest
-    command: hbbr
-    volumes:
-      - ./rustdesk-server/data:/root
-    restart: unless-stopped
-
-  ghost:
-    image: ghost:latest
-    container_name: ghost
-    restart: unless-stopped
-    ports:
-      - 8082:2368
-    environment:
-      # see https://ghost.org/docs/config/#configuration-options
-      database__client: mysql
-      database__connection__host: db01.baungrd.dk
-      database__connection__user: ghost
-      database__connection__password: x2pq1mak95
-      database__connection__database: ghost
-      url: https://blog.baungrd.dk
-      NODE_ENV: production
-    volumes:
-      - /home/mathzb/docker/ghost:/var/lib/ghost/content
 ```
